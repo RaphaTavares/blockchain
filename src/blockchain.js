@@ -14,7 +14,7 @@ class Blockchain{
         return block;
     }
 
-    isValidChain(chain){
+    static isValidChain(chain){
         //validates if the first block is the genesis block
         if(JSON.stringify(chain[0]) !== JSON.stringify(Block.genesis())) return false;
 

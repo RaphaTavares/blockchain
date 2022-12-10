@@ -26,11 +26,13 @@ describe('Blockchain', () => {
     it('validates a valid chain', () => {
         bc2.addBlock('500USD');
 
-        expect(bc.isValidChain(bc2.chain)).toBe(true);
+        expect(Blockchain.isValidChain(bc2.chain)).toBe(true);
     });
 
-    // it('', () => {
+    it('invalidates a chain with a corrupt genesis block', () => {
+        bc2.chain[0].data = '0USD';
 
-    // });
+        expect(Blockchain.isValidChain(bc2.chain)).toBe(false);
+    });
 
 })
