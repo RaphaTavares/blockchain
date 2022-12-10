@@ -1,11 +1,14 @@
-const Blockchain = require('./blockchain');
-const Block = require('./block');
+const Blockchain = require('../blockchain');
+const Block = require('../block');
 
 describe('Blockchain', () => {
 
     let bc;
+    let bc2;
+
     beforeEach(() => {
         bc = new Blockchain;
+        bc2 = new Blockchain;
     });
 
 
@@ -19,5 +22,15 @@ describe('Blockchain', () => {
         
         expect(bc.chain[bc.chain.length -1].data).toEqual(data);
     });
+
+    it('validates a valid chain', () => {
+        bc2.addBlock('500USD');
+
+        expect(bc.isValidChain(bc2.chain)).toBe(true);
+    });
+
+    // it('', () => {
+
+    // });
 
 })
