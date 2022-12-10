@@ -35,4 +35,10 @@ describe('Blockchain', () => {
         expect(Blockchain.isValidChain(bc2.chain)).toBe(false);
     });
 
+    it('invalidates a chain with a corrupt block', () => {
+        bc2.addBlock('200USD');
+        bc2.chain[bc2.chain.length - 1].data = '0USD';
+
+        expect(Blockchain.isValidChain(bc2.chain)).toBe(false);
+    });
 })
