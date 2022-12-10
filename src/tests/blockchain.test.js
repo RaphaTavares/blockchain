@@ -41,4 +41,19 @@ describe('Blockchain', () => {
 
         expect(Blockchain.isValidChain(bc2.chain)).toBe(false);
     });
+
+    it('replaces the chain with a valid new chain', () => {
+        bc2.addBlock('650USD');
+        bc.replaceChain(bc2.chain);
+
+        expect(bc.chain).toEqual(bc2.chain);
+    });
+
+    it('does not replace the chain with a smaller or same sized new chain', () => {
+        bc2.addBlock('325USD');
+
+        bc2.replaceChain(bc.chain);
+
+        expect(bc2.chain).not.toEqual(bc.chain);
+    });
 })
