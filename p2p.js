@@ -64,7 +64,7 @@ const swarm = Swarm(config);
 })();
 
 setTimeout(function(){
-    writeMessageToPeers('QUERO SABER NÃO', null);
+    writeMessageToPeers('Hello', null);
 }, 1000);
 
 const writeMessageToPeers = (type, data) => {
