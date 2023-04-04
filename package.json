@@ -12,6 +12,7 @@
   "dependencies": {
     "dat-swarm-defaults": "^1.0.3",
     "discovery-swarm": "^6.1.0",
-    "get-port": "^6.1.2"
+    "get-port": "^6.1.2",
+    "moment": "^2.29.4"
   }
 }
