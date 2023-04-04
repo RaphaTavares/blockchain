@@ -1,4 +1,4 @@
-exports.BlockHeader = class BlockHeader {
+export class BlockHeader {
     constructor(version, previousBlockHeader, merkleRoot, time)
     {
         this.version = version;
@@ -8,7 +8,7 @@ exports.BlockHeader = class BlockHeader {
     };
 };
 
-exports.Block = class Block {
+export class Block {
     constructor(blockHeader, index, txns)
     {
         this.blockHeader = blockHeader;
