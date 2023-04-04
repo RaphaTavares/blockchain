@@ -23,10 +23,10 @@ const swarm = Swarm(config);
     console.log(`Listening port: ${port}`);
 
     swarm.join(channel);
-    swarm._onconnection("connection", (conn, info) => {
+    swarm.on("connection", (conn, info) => {
         const seq = connSeq;
         const peerId = info.id.toString('hex');
-        console.timeLog(`Connected #${seq} to peer: ${peerId}`);
+        console.log(`Connected #${seq} to peer: ${peerId}`);
 
         if(info.initiator){
             try{
@@ -64,11 +64,11 @@ const swarm = Swarm(config);
 })();
 
 setTimeout(function(){
-    writeMessageToPeers('hello', null);
+    writeMessageToPeers('QUERO SABER NÃO', null);
 }, 1000);
 
-writeMessageToPeers = (type, data) => {
-    for(let id in leers){
+const writeMessageToPeers = (type, data) => {
+    for(let id in peers){
         console.log("--------- writeMessageToPeers start ---------");
         console.log(`type: ${type}, to: ${id}`);
         console.log("--------- writeMessageToPeers end ---------");
@@ -76,7 +76,7 @@ writeMessageToPeers = (type, data) => {
     };
 };
 
-writeMessageToPeerToId = (toId, type, data) => {
+const writeMessageToPeerToId = (toId, type, data) => {
     for(let id in peers) {
         if(id === toId) {
             console.log("--------- writeMessageToPeerToId start ---------");
@@ -87,7 +87,7 @@ writeMessageToPeerToId = (toId, type, data) => {
     };
 };
 
-sendMessage = (id, type, data) => {
+const sendMessage = (id, type, data) => {
     peers[id].conn.write(JSON.stringify(
         {
             to: id,
