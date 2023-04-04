@@ -1,0 +1,17 @@
+{
+  "name": "blockchain",
+  "version": "1.0.0",
+  "description": "p2p network",
+  "main": "p2p.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Raphael Tavares",
+  "license": "ISC",
+  "dependencies": {
+    "dat-swarm-defaults": "^1.0.3",
+    "discovery-swarm": "^6.1.0",
+    "get-port": "^6.1.2"
+  }
+}
