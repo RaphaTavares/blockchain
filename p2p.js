@@ -2,11 +2,12 @@ import crypto from 'crypto';
 import Swarm from 'discovery-swarm';
 import defaults from 'dat-swarm-defaults';
 import getPort from 'get-port';
-import chain from "./chain.js";
+import Chain from "./chain.js";
 
 const peers = {};
 let connSeq = 0;
 let channel = "myBlockchain";
+const chain = new Chain();
 
 let MessageType = {
     REQUEST_LATEST_BLOCK: 'requestLatestBlock',
@@ -53,15 +54,15 @@ const swarm = Swarm(config);
             console.log("--------- Received message end ---------");
 
             switch (message.type) {
-                case MessageType.REQUEST_BLOCK:
-                    console.log('-----------REQUEST_BLOCK-------------');
+                case MessageType.REQUEST_LATEST_BLOCK:
+                    console.log('-----------REQUEST_LATEST_BLOCK-------------');
                     let requestedIndex = (JSON.parse(JSON.stringify(message.data))).index;
                     let requestedBlock = chain.getBlock(requestedIndex);
                     if (requestedBlock)
-                    writeMessageToPeerToId(peerId.toString('hex'), MessageType.RECEIVE_NEXT_BLOCK, requestedBlock);
+                        writeMessageToPeerToId(peerId.toString('hex'), MessageType.RECEIVE_NEXT_BLOCK, requestedBlock);
                     else
                         console.log('No block found @ index: ' + requestedIndex);
-                    console.log('-----------REQUEST_BLOCK-------------');
+                    console.log('-----------REQUEST_LATEST_BLOCK-------------');
                     break;
                 case MessageType.RECEIVE_NEXT_BLOCK:
                     console.log('-----------RECEIVE_NEXT_BLOCK-------------');
@@ -123,5 +124,7 @@ const sendMessage = (id, type, data) => {
 };
 
 setTimeout(function(){
-    writeMessageToPeers(MessageType.REQUEST_BLOCK, {index: chain.getLatestBlock().index+1});
+    writeMessageToPeers(MessageType.REQUEST_LATEST_BLOCK, {index: chain.getLatestBlock().index+1});
+
+    console.log(chain.getLatestBlock());
 }, 5000);
