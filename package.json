@@ -11,9 +11,11 @@
   "license": "ISC",
   "dependencies": {
     "cron": "^2.3.0",
+    "crypto-js": "^4.1.1",
     "dat-swarm-defaults": "^1.0.3",
     "discovery-swarm": "^6.1.0",
     "get-port": "^6.1.2",
+    "level": "^8.0.0",
     "moment": "^2.29.4"
   }
 }

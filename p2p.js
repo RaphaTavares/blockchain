@@ -39,6 +39,8 @@ const config = defaults({
 
 const swarm = Swarm(config);
 
+chain.createDb(myPeerId.toString('hex'));
+
 (async () => {
     const port = await getPort();
 
@@ -173,7 +175,7 @@ setTimeout(function(){
 }, 7000);
 
 
-const job = new CronJob('30 * * * * *', function(){
+const mineNewBlockJob = new CronJob('30 * * * * *', function(){
     let index = 0;
     if(lastBlockMinedBy){
         let  newIndex = registeredMiners.indexOf(lastBlockMinedBy);
@@ -198,4 +200,4 @@ const job = new CronJob('30 * * * * *', function(){
     }
 });
 
-job.start();
+mineNewBlockJob.start();
