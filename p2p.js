@@ -4,6 +4,9 @@ import defaults from 'dat-swarm-defaults';
 import getPort from 'get-port';
 import Chain from "./chain.js";
 import { CronJob } from 'cron';
+import express from 'express';
+import bodyParser from 'body-parser';
+import { initWallet } from './wallet.js'
 
 const peers = {};
 let connSeq = 0;
@@ -41,8 +44,34 @@ const swarm = Swarm(config);
 
 chain.createDb(myPeerId.toString('hex'));
 
+let initHttpServer = (port) => {
+    let http_port = '80' + port.toString().slice(-2);
+    let app = express();
+    app.use(bodyParser.json());
+    
+    app.get('/getBlocks', (req, res) => res.send(JSON.stringify(chain.blockchain)));
+    
+    app.get('/getBlockByIndex', (req, res) => {
+        let blockIndex = req.query.index;
+        res.send(chain.blockchain[blockIndex]);
+    });
+
+    app.get('/getDbBlockByIndex', (req, res) => {
+        let blockIndex = req.query.index;
+        chain.getDbBlock(blockIndex, res);
+    });
+
+    app.get('/getWallet', (req, res) => {
+        res.send(initWallet());
+    });
+
+    app.listen(http_port, () => console.log('Listening on port: ' + http_port));
+};
+
 (async () => {
     const port = await getPort();
+
+    initHttpServer(port);
 
     swarm.listen(port);
     console.log(`Listening port: ${port}`);

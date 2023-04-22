@@ -8,7 +8,7 @@ const { __dirname, __filename } = fileDirName(import.meta);
 const ec = new EC('secp256k1');
 const privateKeyLocation = __dirname + '/wallet/private_key';
 
-export const iniWallet = () => {
+export const initWallet = () => {
     let privateKey;
 
     if(fs.existsSync(privateKeyLocation)){
@@ -35,7 +35,7 @@ const generatePrivateKey = () => {
 
 
 // Test
-///*
+/*
 let retVal = iniWallet();
 console.log(JSON.stringify(retVal));
-//*/
+*/
